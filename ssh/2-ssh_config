@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#SSH set up to connect to server without password
+
+cat ~/.ssh/schoool.pub | ssh ubuntu@184.73.19.238 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"   
