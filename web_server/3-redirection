@@ -3,21 +3,8 @@
 file=/etc/nginx/sites-available/
 new_line="server_name youtube.com\nreturn 301 youtube.com\$request_uri;\n"
 
-sed -i "s/server_name -;/ $new_line/" $file
-sudo touch $file/redirect_me
-sudo cat redirect_me <<EOF
-server {
-	listen 80;
-	listen [::]:80;
+sudo apt update && sudo apt install nginx -y
+sudo sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ;\n\t}' /etc/nginx/sites-available/default
 
-	server_name youtube.com;
+sudo service nginx restart
 
-	root /var/www/youtube.com;
-	index index.html;
-
-	location / {
-		try_files \$uri \$uri/ =404;
-	}
-}
-EOF
-sudo nginx -t && sudo service nginx restart 
