@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+#Redirect server to new domain
+file = /etc/nginx/sites-available/
+new_line = "server_name youtube.com\nreturn 301 youtube.com\$request_uri;\n"
+
+sed -i "s/server_name -;/ $new_line/" $file
+sudo touch $file/redirect_me
+sudo cat redirect_me <<EOF
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name youtube.com;
+
+	root /var/www/youtube.com;
+	index index.html;
+
+	location / {
+		try_files $uri $uri/ =404;
+	}
+}
+EOF
+sudo nginx -t && sudo service nginx restart 
