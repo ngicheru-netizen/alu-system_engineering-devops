@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #Redirect server to new domain
-file = /etc/nginx/sites-available/
-new_line = "server_name youtube.com\nreturn 301 youtube.com\$request_uri;\n"
+file=/etc/nginx/sites-available/
+new_line="server_name youtube.com\nreturn 301 youtube.com\$request_uri;\n"
 
 sed -i "s/server_name -;/ $new_line/" $file
 sudo touch $file/redirect_me
@@ -16,7 +16,7 @@ server {
 	index index.html;
 
 	location / {
-		try_files $uri $uri/ =404;
+		try_files \$uri \$uri/ =404;
 	}
 }
 EOF
