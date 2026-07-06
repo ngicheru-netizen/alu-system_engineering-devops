@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-#Redirect server to new domain
-sudo apt update && sudo apt install nginx -y
+# Configure Nginx so /redirect_me returns a 301 redirect
+
+sudo apt-get update
+sudo apt-get install -y nginx
+
+grep -q "location /redirect_me" /etc/nginx/sites-available/default || \
 sudo sed -i '/server_name _;/a \\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=dQw4w9WgXcQ;\n\t}' /etc/nginx/sites-available/default
 
 sudo service nginx restart
