@@ -6,5 +6,5 @@ sudo apt-get install -y nginx
 
 sudo echo "<html><title>Ceci n'est pas une page</title></html>" | sudo tee /var/www/html/404.html
 grep -q "error_page 404" /etc/nginx/sites-available/default || \
-sudo sed -i '/server_name _;/a \n\error_page 404 /404.html;' /etc/nginx/sites-available/default
+sudo sed -i '/server_name _;/a \\n\error_page 404 /404.html;' /etc/nginx/sites-available/default
 sudo service nginx restart
