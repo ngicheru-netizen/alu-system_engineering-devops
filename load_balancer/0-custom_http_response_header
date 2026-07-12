@@ -2,7 +2,9 @@
 #Custom http response headers
 
 sudo apt-get update
-sudo apt-get install nginx
+sudo apt-get install nginx -y
 
-sudo sed -i '/location \/ {/a\ \tadd_header X-served-By $hostname always;' /etc/nginx/sites-available/default
+grep -q "add_header X-Served-By" /etc/nginx/sites-available/default || 
+sudo sed -i '/server_name _;/a\ \tadd_header X-Served-By $hostname always;' /etc/nginx/sites-available/default
 sudo service nginx restart
+
